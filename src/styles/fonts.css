@@ -1,0 +1,83 @@
+@font-face {
+  font-family: "Inter";
+  font-weight: 700;
+  src: url("@fonts/inter/Inter-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Lora";
+  font-weight: 700;
+  src: url("@fonts/lora/Lora-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-weight: 700;
+  src: url("@fonts/inconsolata/Inconsolata-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 400;
+  src: url("@fonts/inter/Inter-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Lora";
+  font-weight: 400;
+  src: url("@fonts/lora/Lora-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-weight: 400;
+  src: url("@fonts/inconsolata/Inconsolata-Regular.woff2") format("woff2");
+}
+
+:root {
+  --font-sans-stack-fallback: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans-stack: "Inter", var(--font-sans-stack-fallback);
+
+  --font-serif-stack-fallback: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif-stack: "Lora", var(--font-serif-stack-fallback);
+
+  --font-mono-stack-fallback: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-mono-stack: "Inconsolata", var(--font-mono-stack-fallback);
+
+  --font-headline-large-font-weight: 700;
+  --font-headline-large-font-size: 64px;
+  --font-headline-large-line-height: 77px;
+  --font-headline-large-letter-spacing: 0;
+
+  --font-headline-medium-font-weight: 400;
+  --font-headline-medium-font-size: 24px;
+  --font-headline-medium-line-height: 29px;
+  --font-headline-medium-letter-spacing: 0;
+
+  --font-headline-small-font-weight: 400;
+  --font-headline-small-font-size: 20px;
+  --font-headline-small-line-height: 24px;
+  --font-headline-small-letter-spacing: 0;
+
+  --font-body-medium-font-weight: 400;
+  --font-body-medium-font-size: 18px;
+  --font-body-medium-line-height: 24px;
+  --font-body-medium-letter-spacing: 0;
+
+  --font-body-small-font-weight: 400;
+  --font-body-small-font-size: 14px;
+  --font-body-small-line-height: 17px;
+  --font-body-small-letter-spacing: 0;
+}
+
+:root[font="sans"] {
+  --font-stack: var(--font-sans-stack);
+}
+
+:root[font="serif"] {
+  --font-stack: var(--font-serif-stack);
+}
+
+:root[font="mono"] {
+  --font-stack: var(--font-mono-stack);
+}

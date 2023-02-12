@@ -1,0 +1,53 @@
+:root {
+  --color-background-light: #ffffff;
+  --color-on-background-light: #2d2d2d;
+  --color-surface-light: #f4f4f4;
+  --color-on-surface-light: #2d2d2d;
+  --color-surface-variant-light: #757575;
+  --color-on-surface-variant-light: #757575;
+  --color-outline-light: #979797;
+  --color-primary-light: #a445ed;
+  --color-primary-container-light: #e8d0fa;
+  --color-secondary-light: #ffffff;
+  --color-error-light: #ff5252;
+  
+  --color-background-dark: #050505;
+  --color-on-background-dark: #ffffff;
+  --color-surface-dark: #1f1f1f;
+  --color-on-surface-dark: #ffffff;
+  --color-surface-variant-dark: #757575;
+  --color-on-surface-variant-dark: #757575;
+  --color-outline-dark: #3a3a3a;
+  --color-primary-dark: #a445ed;
+  --color-primary-container-dark: #2d153f;
+  --color-secondary-dark: #ffffff;
+  --color-error-dark: #ff5252;
+}
+
+:root[theme="light"] {
+  --color-background: var(--color-background-light);
+  --color-on-background: var(--color-on-background-light);
+  --color-surface: var(--color-on-surface-light);
+  --color-on-surface: var(--color-on-surface-light);
+  --color-surface-variant: var(--color-surface-variant-light);
+  --color-on-surface-variant: var(--color-on-surface-variant-light);
+  --color-outline: var(--color-outline-light);
+  --color-primary: var(--color-primary-light);
+  --color-primary-container: var(--color-primary-container-light);
+  --color-secondary: var(--color-secondary-light);
+  --color-error: var(--color-error-light);
+}
+
+:root[theme="dark"] {
+  --color-background: var(--color-background-dark);
+  --color-on-background: var(--color-on-background-dark);
+  --color-surface: var(--color-on-surface-dark);
+  --color-on-surface: var(--color-on-surface-dark);
+  --color-surface-variant: var(--color-surface-variant-dark);
+  --color-on-surface-variant: var(--color-on-surface-variant-dark);
+  --color-outline: var(--color-outline-dark);
+  --color-primary: var(--color-primary-dark);
+  --color-primary-container: var(--color-primary-container-dark);
+  --color-secondary: var(--color-secondary-dark);
+  --color-error: var(--color-error-dark);
+}
