@@ -137,11 +137,18 @@
           height: 12px;
           color: var(--color-primary);
         }
+        .list[aria-expanded="false"] ~ .button .button__icon {
+          transform: none;
+        }
+        .list[aria-expanded="true"] ~ .button .button__icon {
+          transform: rotate(180deg);
+        }
         .list {
           margin-top: 0;
           margin-bottom: 0;
           position: absolute;
           z-index: 100;
+          top: 100%;
           right: 0;
           display: flex;
           flex-direction: column;
@@ -192,24 +199,16 @@
           .list__item {
             transition-property: color;
           }
+          .button__icon {
+            transition-property: transform; 
+          }
           .list,
-          .list__item {
+          .list__item,
+          .button__icon {
             transition-duration: 150ms;
           }
         }
       </style>
-      <button
-        class="button"
-        type="button"
-        aria-haspopup="menu"
-        aria-controls="fontmenu"
-        tabindex="0"
-        aria-label="Font style: Sans serif">
-        <span class="button__label">Sans serif</span>
-        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8">
-          <path fill="none" stroke="currentColor" stroke-width="1.5" d="m1 1 6 6 6-6"/>
-        </svg>
-      </button>
       <ul
         class="list"
         role="menu"
@@ -239,6 +238,18 @@
           Mono
         </li>
       </ul>
+      <button
+        class="button"
+        type="button"
+        aria-haspopup="menu"
+        aria-controls="fontmenu"
+        tabindex="0"
+        aria-label="Font style: Sans serif">
+        <span class="button__label">Sans serif</span>
+        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8">
+          <path fill="none" stroke="currentColor" stroke-width="1.5" d="m1 1 6 6 6-6"/>
+        </svg>
+      </button>
     </template>
 
     <template id="template-web-theme-switch">

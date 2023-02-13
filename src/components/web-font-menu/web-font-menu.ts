@@ -11,7 +11,7 @@ class WebFontMenu extends HTMLElement {
   #listElement;
 
   static get observedAttributes() {
-    return ["font"];
+    return ["font", "visible"];
   }
 
   constructor() {
@@ -22,6 +22,7 @@ class WebFontMenu extends HTMLElement {
     this.#buttonElement = shadowRoot.querySelector("button");
     this.#listElement = shadowRoot.querySelector("ul");
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
   get font() {
@@ -33,6 +34,18 @@ class WebFontMenu extends HTMLElement {
       this.setAttribute("font", newFont);
     } else {
       this.removeAttribute("font");
+    }
+  }
+
+  get visible() {
+    return this.hasAttribute("visible");
+  }
+
+  set visible(isVisible) {
+    if (isVisible) {
+      this.setAttribute("visible", "");
+    } else {
+      this.removeAttribute("visible");
     }
   }
 
@@ -67,13 +80,18 @@ class WebFontMenu extends HTMLElement {
     }
   }
 
-  handleButtonClick() {
-    if (this.visible) {
+  #handleVisibility(isVisible: boolean) {
+    this.#listElement?.setAttribute("aria-expanded", isVisible ? "true" : "false");
+  }
+
+  handleButtonClick(event: MouseEvent) {
+    event.stopImmediatePropagation();
+    this.visible = !this.visible;
+  }
+
+  handleOutsideClick(event: MouseEvent) {
+    if (!event.composedPath().includes(this)) {
       this.visible = false;
-      this.#listElement?.setAttribute("aria-expanded", "false");
-    } else {
-      this.visible = true;
-      this.#listElement?.setAttribute("aria-expanded", "true");
     }
   }
 
@@ -92,10 +110,12 @@ class WebFontMenu extends HTMLElement {
       this.#hasBeenMountedOnce = true;
     }
     this.#buttonElement?.addEventListener("click", this.handleButtonClick);
+    document.addEventListener("click", this.handleOutsideClick);
   }
 
   disconnectedCallback() {
     this.#buttonElement?.removeEventListener("click", this.handleButtonClick);
+    document.removeEventListener("click", this.handleOutsideClick);
   }
 
   attributeChangedCallback(name: string, oldvalue: string | undefined, newValue: string | undefined) {
@@ -103,6 +123,10 @@ class WebFontMenu extends HTMLElement {
       switch (name) {
         case "font": {
           this.#handleFont(newValue);
+          break;
+        }
+        case "visible": {
+          this.#handleVisibility(typeof newValue === "string");
           break;
         }
       }
