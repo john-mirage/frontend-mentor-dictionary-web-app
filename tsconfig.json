@@ -16,9 +16,11 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@api/*": ["src/api/*"],
       "@components/*": ["src/components/*"],
       "@fonts/*": ["src/fonts/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": ["src"]

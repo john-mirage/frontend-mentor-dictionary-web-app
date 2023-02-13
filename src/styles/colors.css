@@ -27,7 +27,7 @@
 :root[theme="light"] {
   --color-background: var(--color-background-light);
   --color-on-background: var(--color-on-background-light);
-  --color-surface: var(--color-on-surface-light);
+  --color-surface: var(--color-surface-light);
   --color-on-surface: var(--color-on-surface-light);
   --color-surface-variant: var(--color-surface-variant-light);
   --color-on-surface-variant: var(--color-on-surface-variant-light);
