@@ -109,6 +109,7 @@
     <template id="template-web-font-menu">
       <style>
         :host {
+          position: relative;
           display: block;
         }
         .button {
@@ -136,13 +137,99 @@
           height: 12px;
           color: var(--color-primary);
         }
+        .list {
+          margin-top: 18px;
+          margin-bottom: 0;
+          position: absolute;
+          z-index: 100;
+          right: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 16px;
+          width: 182px;
+          padding: 24px;
+          background-color: var(--color-surface);
+          border-radius: 16px;
+          list-style: none;
+          box-shadow: var(--surface-shadow);
+        }
+        .list[aria-expanded="false"] {
+          display: none;
+        }
+        .list[aria-expanded="true"] {
+          display: flex;
+        }
+        .list__item {
+          font-weight: var(--font-label-large-font-weight);
+          font-size: var(--font-label-large-font-size);
+          line-height: var(--font-label-large-line-height);
+          letter-spacing: var(--font-label-large-letter-spacing);
+          color: var(--color-on-surface);
+          cursor: pointer;
+        }
+        .list__item--sans-serif {
+          font-family: var(--font-sans-stack);
+        }
+        .list__item--serif {
+          font-family: var(--font-serif-stack);
+        }
+        .list__item--mono {
+          font-family: var(--font-mono-stack);
+        }
+        @media screen and (hover: hover) {
+          .list__item:hover {
+            color: var(--color-primary);
+          }
+        }
+        @media screen and (prefers-reduced-motion: no-preference) {
+          .list__item {
+            transition-property: color;
+            transition-duration: 150ms;
+          }
+        }
       </style>
-      <button class="button" type="button">
+      <button
+        class="button"
+        type="button"
+        aria-haspopup="menu"
+        aria-controls="fontmenu"
+        tabindex="0"
+        aria-label="Font style: Sans serif">
         <span class="button__label">Sans serif</span>
         <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8">
           <path fill="none" stroke="currentColor" stroke-width="1.5" d="m1 1 6 6 6-6"/>
         </svg>
       </button>
+      <ul
+        class="list"
+        role="menu"
+        id="fontmenu"
+        aria-label="Font Options"
+        aria-expanded="false"
+        tabindex="-1">
+        <li
+          class="list__item list__item--sans-serif"
+          role="menuitemradio"
+          aria-checked="true"
+          tabindex="-1">
+          Sans Serif
+        </li>
+        <li
+          class="list__item list__item--serif"
+          role="menuitemradio"
+          aria-checked="false"
+          tabindex="-1">
+          Serif
+        </li>
+        <li
+          class="list__item list__item--mono"
+          role="menuitemradio"
+          aria-checked="false"
+          tabindex="-1">
+          Mono
+        </li>
+      </ul>
     </template>
 
     <template id="template-web-theme-switch">
@@ -168,7 +255,7 @@
           height: 20px;
           padding: 3px;
           border-radius: 9999px;
-          background-color: var(--color-surface-variant);
+          background-color: var(--color-secondary);
         }
         .button[aria-pressed="true"] .button__track {
           background-color: var(--color-primary);
@@ -178,10 +265,11 @@
           width: 14px;
           height: 14px;
           border-radius: 9999px;
-          background-color: var(--color-secondary);
+          background-color: var(--color-background);
         }
         .button[aria-pressed="true"] .button__handle {
           transform: translateX(20px);
+          background-color: var(--color-background-inversed);
         }
         .button__icon {
           display: block;
@@ -197,7 +285,7 @@
             transition-property: background-color;
           }
           .button__handle {
-            transition-property: transform;
+            transition-property: background-color, transform;
           }
           .button__icon {
             transition-property: color;
@@ -232,7 +320,7 @@
           height: 100%;
           padding-left: 24px;
           padding-right: 64px;
-          background-color: var(--color-surface);
+          background-color: var(--color-surface-variant);
           border: none;
           border-radius: 16px;
           font-family: var(--font-stack);
@@ -241,6 +329,9 @@
           line-height: var(--font-label-medium-line-height);
           letter-spacing: var(--font-label-medium-letter-spacing);
           color: var(--color-on-surface);
+        }
+        .input:focus-visible {
+          outline: 1px solid var(--color-primary);
         }
         .icon {
           position: absolute;

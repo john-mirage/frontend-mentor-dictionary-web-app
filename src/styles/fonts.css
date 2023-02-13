@@ -69,6 +69,11 @@
   --font-body-small-line-height: 17px;
   --font-body-small-letter-spacing: 0;
 
+  --font-label-large-font-weight: 700;
+  --font-label-large-font-size: 18px;
+  --font-label-large-line-height: 24px;
+  --font-label-large-letter-spacing: 0;
+
   --font-label-medium-font-weight: 700;
   --font-label-medium-font-size: 16px;
   --font-label-medium-line-height: 24px;

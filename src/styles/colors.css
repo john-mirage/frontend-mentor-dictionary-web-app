@@ -1,27 +1,31 @@
 :root {
   --color-background-light: #ffffff;
   --color-on-background-light: #2d2d2d;
-  --color-surface-light: #f4f4f4;
+  --color-surface-light: #ffffff;
   --color-on-surface-light: #2d2d2d;
-  --color-surface-variant-light: #757575;
+  --color-surface-variant-light: #f4f4f4;
   --color-on-surface-variant-light: #757575;
   --color-outline-light: #979797;
   --color-primary-light: #a445ed;
   --color-primary-container-light: #e8d0fa;
-  --color-secondary-light: #ffffff;
+  --color-secondary-light: #757575;
   --color-error-light: #ff5252;
+  --color-background-inversed-light: #050505;
+  --surface-shadow-light: 0 5px 30px rgba(0, 0, 0, 0.1);
   
   --color-background-dark: #050505;
   --color-on-background-dark: #ffffff;
   --color-surface-dark: #1f1f1f;
   --color-on-surface-dark: #ffffff;
-  --color-surface-variant-dark: #757575;
+  --color-surface-variant-dark: #1f1f1f;
   --color-on-surface-variant-dark: #757575;
   --color-outline-dark: #3a3a3a;
   --color-primary-dark: #a445ed;
   --color-primary-container-dark: #2d153f;
   --color-secondary-dark: #ffffff;
   --color-error-dark: #ff5252;
+  --color-background-inversed-dark: #ffffff;
+  --surface-shadow-dark: 0 5px 30px var(--color-primary-dark);
 }
 
 :root[theme="light"] {
@@ -36,6 +40,8 @@
   --color-primary-container: var(--color-primary-container-light);
   --color-secondary: var(--color-secondary-light);
   --color-error: var(--color-error-light);
+  --color-background-inversed: var(--color-background-inversed-light);
+  --surface-shadow: var(--surface-shadow-light);
 }
 
 :root[theme="dark"] {
@@ -50,4 +56,6 @@
   --color-primary-container: var(--color-primary-container-dark);
   --color-secondary: var(--color-secondary-dark);
   --color-error: var(--color-error-dark);
+  --color-background-inversed: var(--color-background-inversed-dark);
+  --surface-shadow: var(--surface-shadow-dark);
 }
