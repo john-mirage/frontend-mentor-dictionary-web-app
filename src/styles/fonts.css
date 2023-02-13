@@ -59,8 +59,13 @@
   --font-headline-small-line-height: 24px;
   --font-headline-small-letter-spacing: 0;
 
+  --font-title-medium-font-weight: 700;
+  --font-title-medium-font-size: 20px;
+  --font-title-medium-line-height: 24px;
+  --font-title-medium-letter-spacing: 0;
+
   --font-title-small-font-weight: 700;
-  --font-title-small-font-size: 20px;
+  --font-title-small-font-size: 18px;
   --font-title-small-line-height: 24px;
   --font-title-small-letter-spacing: 0;
 

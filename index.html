@@ -87,7 +87,11 @@
         }
       </style>
       <main>
-        <web-loader></web-loader>
+        <web-hero
+          icon="search"
+          headline="Welcome to the dictionary web app"
+          description="Search for a word with the help of search bar">
+        </web-hero>
       </main>
     </template>
 
@@ -108,15 +112,15 @@
           text-align: center;
         }
         .icon {
-          margin-bottom: 44px;
+          margin-bottom: 32px;
           display: block;
-          width: 64px;
-          height: 64px;
+          width: 48px;
+          height: 48px;
           color: var(--color-on-surface-variant);
         }
-        .title {
+        .headline {
           margin-top: 0;
-          margin-bottom: 24px;
+          margin-bottom: 16px;
           font-family: var(--font-stack);
           font-weight: var(--font-title-small-font-weight);
           font-size: var(--font-title-small-font-size);
@@ -128,11 +132,31 @@
           margin-top: 0;
           margin-bottom: 0;
           font-family: var(--font-stack);
-          font-weight: var(--font-body-medium-font-weight);
-          font-size: var(--font-body-medium-font-size);
-          line-height: var(--font-body-medium-line-height);
-          letter-spacing: var(--font-body-medium-letter-spacing);
+          font-weight: var(--font-body-small-font-weight);
+          font-size: var(--font-body-small-font-size);
+          line-height: var(--font-body-small-line-height);
+          letter-spacing: var(--font-body-small-letter-spacing);
           color: var(--color-on-surface-variant);
+        }
+        @media screen and (min-width: 736px) {
+          .icon {
+            margin-bottom: 44px;
+            width: 64px;
+            height: 64px;
+          }
+          .headline {
+            margin-bottom: 24px;
+            font-weight: var(--font-title-medium-font-weight);
+            font-size: var(--font-title-medium-font-size);
+            line-height: var(--font-title-medium-line-height);
+            letter-spacing: var(--font-title-medium-letter-spacing);
+          }
+          .description {
+            font-weight: var(--font-body-medium-font-weight);
+            font-size: var(--font-body-medium-font-size);
+            line-height: var(--font-body-medium-line-height);
+            letter-spacing: var(--font-body-medium-letter-spacing);
+          }
         }
       </style>
       <svg class="icons" xmlns="http://www.w3.org/2000/svg">
@@ -145,10 +169,10 @@
       </svg>
       <section class="column">
         <svg class="icon">
-          <use class="icon-shape" href="#icon-search"></use>
+          <use data-js="icon-shape"></use>
         </svg>
-        <h1 class="title">Welcome to the dictionary web app</h1>
-        <p class="description">Search for a word with the help of search bar</p>
+        <h1 class="headline" data-js="headline"></h1>
+        <p class="description" data-js="description"></p>
       </section>
     </template>
 
@@ -179,11 +203,11 @@
         :host {
           display: flex;
           flex-direction: row;
-          justify-content: flex-start;
+          justify-content: space-between;
           align-items: center;
         }
         .section {
-          flex: 1;
+          flex: 0 0 auto;
           display: flex;
           flex-direction: row;
           align-items: center;
@@ -241,6 +265,7 @@
           transform: rotate(180deg);
         }
         .list {
+          box-sizing: border-box;
           margin-top: 0;
           margin-bottom: 0;
           position: absolute;
@@ -268,10 +293,10 @@
           transform: translateY(18px);
         }
         .list__item {
-          font-weight: var(--font-label-large-font-weight);
-          font-size: var(--font-label-large-font-size);
-          line-height: var(--font-label-large-line-height);
-          letter-spacing: var(--font-label-large-letter-spacing);
+          font-weight: var(--font-label-medium-font-weight);
+          font-size: var(--font-label-medium-font-size);
+          line-height: var(--font-label-medium-line-height);
+          letter-spacing: var(--font-label-medium-letter-spacing);
           color: var(--color-on-surface);
           cursor: pointer;
         }
@@ -303,6 +328,17 @@
           .list__item,
           .button__icon {
             transition-duration: 150ms;
+          }
+        }
+        @media screen and (min-width: 736px) {
+          .list {
+            width: 182px;
+          }
+          .list__item {
+            font-weight: var(--font-label-large-font-weight);
+            font-size: var(--font-label-large-font-size);
+            line-height: var(--font-label-large-line-height);
+            letter-spacing: var(--font-label-large-letter-spacing);
           }
         }
       </style>
@@ -441,10 +477,10 @@
           border: none;
           border-radius: 16px;
           font-family: var(--font-stack);
-          font-weight: var(--font-label-medium-font-weight);
-          font-size: var(--font-label-medium-font-size);
-          line-height: var(--font-label-medium-line-height);
-          letter-spacing: var(--font-label-medium-letter-spacing);
+          font-weight: var(--font-label-small-font-weight);
+          font-size: var(--font-label-small-font-size);
+          line-height: var(--font-label-small-line-height);
+          letter-spacing: var(--font-label-small-letter-spacing);
           color: var(--color-on-surface);
         }
         .input:focus-visible {
@@ -459,6 +495,14 @@
           height: 16px;
           transform: translateY(-50%);
           color: var(--color-primary);
+        }
+        @media screen and (min-width: 736px) {
+          .input {
+            font-weight: var(--font-label-medium-font-weight);
+            font-size: var(--font-label-medium-font-size);
+            line-height: var(--font-label-medium-line-height);
+            letter-spacing: var(--font-label-medium-letter-spacing);
+          }
         }
       </style>
       <input class="input" type="search" placeholder="Search for any word…">
@@ -552,7 +596,7 @@
         .loader {
           margin-left: auto;
           margin-right: auto;
-          width: 56px;
+          width: 48px;
           padding: 8px;
           background: var(--color-on-surface-variant);
           aspect-ratio: 1;
