@@ -37,13 +37,13 @@ class WebThemeSwitch extends HTMLElement {
     }
   }
 
-  #ActivateLightTheme() {
+  #activateLightTheme() {
     ThemeAPI.theme = LIGHT_THEME;
     this.#buttonElement?.setAttribute("aria-pressed", "false");
     document.documentElement.setAttribute("theme", LIGHT_THEME);
   }
 
-  #ActivateDarkTheme() {
+  #activateDarkTheme() {
     ThemeAPI.theme = DARK_THEME;
     this.#buttonElement?.setAttribute("aria-pressed", "true");
     document.documentElement.setAttribute("theme", DARK_THEME);
@@ -51,9 +51,9 @@ class WebThemeSwitch extends HTMLElement {
 
   #handleTheme(newTheme: string | undefined) {
     if (newTheme === DARK_THEME) {
-      this.#ActivateDarkTheme();
+      this.#activateDarkTheme();
     } else {
-      this.#ActivateLightTheme();
+      this.#activateLightTheme();
     }
   }
 

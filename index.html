@@ -138,7 +138,7 @@
           color: var(--color-primary);
         }
         .list {
-          margin-top: 18px;
+          margin-top: 0;
           margin-bottom: 0;
           position: absolute;
           z-index: 100;
@@ -155,10 +155,13 @@
           box-shadow: var(--surface-shadow);
         }
         .list[aria-expanded="false"] {
-          display: none;
+          visibility: hidden;
+          opacity: 0;
         }
         .list[aria-expanded="true"] {
-          display: flex;
+          visibility: visible;
+          opacity: 1;
+          transform: translateY(18px);
         }
         .list__item {
           font-weight: var(--font-label-large-font-weight);
@@ -183,8 +186,14 @@
           }
         }
         @media screen and (prefers-reduced-motion: no-preference) {
+          .list {
+            transition-property: transform, opacity, visibility;
+          }
           .list__item {
             transition-property: color;
+          }
+          .list,
+          .list__item {
             transition-duration: 150ms;
           }
         }
