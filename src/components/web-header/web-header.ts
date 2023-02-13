@@ -1,10 +1,10 @@
-class WebApp extends HTMLElement {
+class WebHeader extends HTMLElement {
   constructor() {
     super();
-    const template = <HTMLTemplateElement>document.getElementById("template-web-app");
+    const template = <HTMLTemplateElement>document.getElementById("template-web-header");
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.append(template.content.cloneNode(true));
   }
 }
 
-export default WebApp;
+export default WebHeader;

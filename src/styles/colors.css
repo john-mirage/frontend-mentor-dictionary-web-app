@@ -41,7 +41,7 @@
 :root[theme="dark"] {
   --color-background: var(--color-background-dark);
   --color-on-background: var(--color-on-background-dark);
-  --color-surface: var(--color-on-surface-dark);
+  --color-surface: var(--color-surface-dark);
   --color-on-surface: var(--color-on-surface-dark);
   --color-surface-variant: var(--color-surface-variant-dark);
   --color-on-surface-variant: var(--color-on-surface-variant-dark);

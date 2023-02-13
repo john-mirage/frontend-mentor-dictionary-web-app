@@ -68,6 +68,16 @@
   --font-body-small-font-size: 14px;
   --font-body-small-line-height: 17px;
   --font-body-small-letter-spacing: 0;
+
+  --font-label-medium-font-weight: 700;
+  --font-label-medium-font-size: 16px;
+  --font-label-medium-line-height: 24px;
+  --font-label-medium-letter-spacing: 0;
+
+  --font-label-small-font-weight: 700;
+  --font-label-small-font-size: 14px;
+  --font-label-small-line-height: 24px;
+  --font-label-small-letter-spacing: 0;
 }
 
 :root[font="sans"] {
