@@ -5,7 +5,7 @@ const PREFERS_DARK_COLOR_SCHEME_MQ = "(prefers-color-scheme: dark)";
 const LIGHT_THEME = "light";
 const DARK_THEME = "dark";
 
-class WebThemeSwitch extends HTMLElement {
+class WebThemeButton extends HTMLElement {
   [prop: string]: any;
   #hasBeenMountedOnce = false;
   #preferDarkColorSchemeMQL = window.matchMedia(PREFERS_DARK_COLOR_SCHEME_MQ);
@@ -17,7 +17,7 @@ class WebThemeSwitch extends HTMLElement {
 
   constructor() {
     super();
-    const template = <HTMLTemplateElement>document.getElementById("template-web-theme-switch");
+    const template = <HTMLTemplateElement>document.getElementById("template-web-theme-button");
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.append(template.content.cloneNode(true));
     this.#buttonElement = shadowRoot.querySelector("button");
@@ -100,4 +100,4 @@ class WebThemeSwitch extends HTMLElement {
   }
 }
 
-export default WebThemeSwitch;
+export default WebThemeButton;

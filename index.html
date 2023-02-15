@@ -73,9 +73,9 @@
       <header class="header">
         <web-row>
           <web-logo slot="left"></web-logo>
-          <web-font-menu slot="right" class="font-menu"></web-font-menu>
+          <web-font-button slot="right" class="font-menu"></web-font-button>
           <div slot="right" class="spacer"></div>
-          <web-theme-switch slot="right"></web-theme-switch>
+          <web-theme-button slot="right"></web-theme-button>
         </web-row>
       </header>
     </template>
@@ -227,7 +227,7 @@
       </div>
     </template>
 
-    <template id="template-web-font-menu">
+    <template id="template-web-font-button">
       <style>
         :host {
           position: relative;
@@ -258,41 +258,92 @@
           height: 12px;
           color: var(--color-primary);
         }
-        .list[aria-expanded="false"] ~ .button .button__icon {
+        .button[aria-expanded="false"] .button__icon {
           transform: none;
         }
-        .list[aria-expanded="true"] ~ .button .button__icon {
+        .button[aria-expanded="true"] .button__icon {
           transform: rotate(180deg);
         }
-        .list {
-          box-sizing: border-box;
-          margin-top: 0;
-          margin-bottom: 0;
+        .menu {
           position: absolute;
           z-index: 100;
           top: 100%;
           right: 0;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 16px;
-          width: 182px;
-          padding: 24px;
-          background-color: var(--color-surface);
-          border-radius: 16px;
-          list-style: none;
-          box-shadow: var(--surface-shadow);
         }
-        .list[aria-expanded="false"] {
+        .button[aria-expanded="false"] ~ .menu {
           visibility: hidden;
           opacity: 0;
         }
-        .list[aria-expanded="true"] {
+        .button[aria-expanded="true"] ~ .menu {
           visibility: visible;
           opacity: 1;
           transform: translateY(18px);
         }
-        .list__item {
+      </style>
+      <button
+        class="button"
+        type="button"
+        aria-label="Font style: Sans serif"
+        aria-expanded="false"
+        aria-haspopup="menu"
+        aria-controls="fontform"
+        tabindex="0">
+        <span class="button__label"></span>
+        <svg
+          class="button__icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="8"
+          viewBox="0 0 14 8">
+          <path
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            d="m1 1 6 6 6-6"
+          />
+        </svg>
+      </button>
+      <web-font-menu
+        class="menu"
+        id="fontform"
+        role="menu">
+      </web-font-menu>
+    </template>
+
+    <template id="template-web-font-menu">
+      <style>
+        :host {
+          box-sizing: border-box;
+          display: block;
+          width: 182px;
+          padding: 24px;
+          background-color: var(--color-surface);
+          border-radius: 16px;
+          box-shadow: var(--surface-shadow);
+        }
+        .form__fieldset {
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 16px;
+          padding: 0;
+          border: none;
+        }
+        .form__legend {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border-width: 0;
+        }
+        .form__label {
+          position: relative;
+          display: block;
           font-weight: var(--font-label-medium-font-weight);
           font-size: var(--font-label-medium-font-size);
           line-height: var(--font-label-medium-line-height);
@@ -300,41 +351,43 @@
           color: var(--color-on-surface);
           cursor: pointer;
         }
-        .list__item--sans-serif {
+        .form__label--sans-serif {
           font-family: var(--font-sans-stack);
         }
-        .list__item--serif {
+        .form__label--serif {
           font-family: var(--font-serif-stack);
         }
-        .list__item--mono {
+        .form__label--mono {
           font-family: var(--font-mono-stack);
         }
+        .form__input {
+          margin: 0;
+          position: absolute;
+          inset: 0;
+        }
+        .form__input:not(:checked) {
+          cursor: pointer;
+        }
         @media screen and (hover: hover) {
-          .list__item:hover {
+          .form__label:hover {
             color: var(--color-primary);
           }
         }
         @media screen and (prefers-reduced-motion: no-preference) {
-          .list {
+          :host {
             transition-property: transform, opacity, visibility;
+            transition-duration: 150ms;
           }
-          .list__item {
+          .form__label {
             transition-property: color;
-          }
-          .button__icon {
-            transition-property: transform; 
-          }
-          .list,
-          .list__item,
-          .button__icon {
             transition-duration: 150ms;
           }
         }
         @media screen and (min-width: 736px) {
-          .list {
+          :host {
             width: 182px;
           }
-          .list__item {
+          .form__label {
             font-weight: var(--font-label-large-font-weight);
             font-size: var(--font-label-large-font-size);
             line-height: var(--font-label-large-line-height);
@@ -342,50 +395,41 @@
           }
         }
       </style>
-      <ul
-        class="list"
-        role="menu"
-        id="fontmenu"
-        aria-label="Font Options"
-        aria-expanded="false"
-        tabindex="-1">
-        <li
-          class="list__item list__item--sans-serif"
-          role="menuitemradio"
-          aria-checked="true"
-          tabindex="-1">
-          Sans Serif
-        </li>
-        <li
-          class="list__item list__item--serif"
-          role="menuitemradio"
-          aria-checked="false"
-          tabindex="-1">
-          Serif
-        </li>
-        <li
-          class="list__item list__item--mono"
-          role="menuitemradio"
-          aria-checked="false"
-          tabindex="-1">
-          Mono
-        </li>
-      </ul>
-      <button
-        class="button"
-        type="button"
-        aria-haspopup="menu"
-        aria-controls="fontmenu"
-        tabindex="0"
-        aria-label="Font style: Sans serif">
-        <span class="button__label">Sans serif</span>
-        <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8">
-          <path fill="none" stroke="currentColor" stroke-width="1.5" d="m1 1 6 6 6-6"/>
-        </svg>
-      </button>
+      <form class="form">
+        <fieldset class="form__fieldset">
+          <legend class="form__legend">Choose a font style</legend>
+          <label class="form__label form__label--sans-serif">
+            <input
+              class="form__input"
+              type="radio"
+              name="font-style"
+              value="sans"
+              aria-checked="false">
+            Sans serif
+          </label>
+          <label class="form__label form__label--serif">
+            <input
+              class="form__input"
+              type="radio"
+              name="font-style"
+              value="serif"
+              aria-checked="false">
+            Serif
+          </label>
+          <label class="form__label form__label--mono">
+            <input
+              class="form__input"
+              type="radio"
+              name="font-style"
+              value="mono"
+              aria-checked="false">
+            Mono
+          </label>
+        </fieldset>
+      </form>
     </template>
 
-    <template id="template-web-theme-switch">
+    <template id="template-web-theme-button">
       <style>
         :host {
           display: block;

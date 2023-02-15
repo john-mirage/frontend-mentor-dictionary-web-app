@@ -7,7 +7,7 @@ const SERIF_FONT = "serif";
 const MONO_FONT = "mono";
 
 class FontAPI {
-  static #font: string | undefined;
+  static #font?: string;
 
   static #fontIsValid(font: unknown) {
     return (

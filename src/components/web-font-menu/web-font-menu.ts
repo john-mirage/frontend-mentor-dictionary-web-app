@@ -7,11 +7,13 @@ const MONO_FONT = "mono";
 class WebFontMenu extends HTMLElement {
   [prop: string]: any;
   #hasBeenMountedOnce = false;
-  #buttonElement;
-  #listElement;
+  #formElement;
+  #sansInputElement;
+  #serifInputElement;
+  #monoInputElement;
 
   static get observedAttributes() {
-    return ["font", "visible"];
+    return ["font"];
   }
 
   constructor() {
@@ -19,14 +21,15 @@ class WebFontMenu extends HTMLElement {
     const template = <HTMLTemplateElement>document.getElementById("template-web-font-menu");
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.append(template.content.cloneNode(true));
-    this.#buttonElement = shadowRoot.querySelector("button");
-    this.#listElement = shadowRoot.querySelector("ul");
-    this.handleButtonClick = this.handleButtonClick.bind(this);
-    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+    this.#formElement = <HTMLFormElement>shadowRoot.querySelector("form");
+    this.#sansInputElement = <HTMLInputElement>shadowRoot.querySelector('input[value="sans"]');
+    this.#serifInputElement = <HTMLInputElement>shadowRoot.querySelector('input[value="serif"]');
+    this.#monoInputElement = <HTMLInputElement>shadowRoot.querySelector('input[value="mono"]');
+    this.handleFormChange = this.handleFormChange.bind(this);
   }
 
   get font() {
-    return this.getAttribute("theme") ?? undefined;
+    return this.getAttribute("font") ?? undefined;
   }
 
   set font(newFont) {
@@ -34,18 +37,6 @@ class WebFontMenu extends HTMLElement {
       this.setAttribute("font", newFont);
     } else {
       this.removeAttribute("font");
-    }
-  }
-
-  get visible() {
-    return this.hasAttribute("visible");
-  }
-
-  set visible(isVisible) {
-    if (isVisible) {
-      this.setAttribute("visible", "");
-    } else {
-      this.removeAttribute("visible");
     }
   }
 
@@ -64,35 +55,59 @@ class WebFontMenu extends HTMLElement {
     document.documentElement.setAttribute("font", MONO_FONT);
   }
 
+  #sendNewFontCustomEvent(newFont: string) {
+    const customEvent = new CustomEvent("web-font-button-label", {
+      bubbles: true,
+      composed: true,
+      detail: { font: newFont }
+    });
+    this.dispatchEvent(customEvent);
+  }
+
   #handleFont(newFont: string | undefined) {
     switch (newFont) {
       case SERIF_FONT: {
         this.#activateSerifFont();
+        this.#sendNewFontCustomEvent("Serif");
         break;
       }
       case MONO_FONT: {
         this.#activateMonoFont();
+        this.#sendNewFontCustomEvent("Mono");
         break;
       }
       default: {
         this.#activateSansFont();
+        this.#sendNewFontCustomEvent("Sans Serif");
       }
     }
   }
 
-  #handleVisibility(isVisible: boolean) {
-    this.#listElement?.setAttribute("aria-expanded", isVisible ? "true" : "false");
-  }
-
-  handleButtonClick(event: MouseEvent) {
-    event.stopImmediatePropagation();
-    this.visible = !this.visible;
-  }
-
-  handleOutsideClick(event: MouseEvent) {
-    if (!event.composedPath().includes(this)) {
-      this.visible = false;
+  #handleInitialFont(initialFont: string | undefined) {
+    if (typeof initialFont === "string") {
+      switch (initialFont) {
+        case SERIF_FONT: {
+          this.#serifInputElement.checked = true;
+          this.#sendNewFontCustomEvent("Serif");
+          break;
+        }
+        case MONO_FONT: {
+          this.#monoInputElement.checked = true;
+          this.#sendNewFontCustomEvent("Mono");
+          break;
+        }
+        default: {
+          this.#sansInputElement.checked = true;
+          this.#sendNewFontCustomEvent("Sans Serif");
+        }
+      }
+    } else {
+      throw new TypeError("The initial font is not a string");
     }
+  }
+
+  handleFormChange(event: Event) {
+    this.font = (<HTMLInputElement>event.target).value;
   }
 
   #upgradeProperty(propertyName: string) {
@@ -106,16 +121,15 @@ class WebFontMenu extends HTMLElement {
   connectedCallback() {
     if (!this.#hasBeenMountedOnce) {
       this.#upgradeProperty("font");
-      this.theme = FontAPI.font;
+      this.font = FontAPI.font;
+      this.#handleInitialFont(this.font);
       this.#hasBeenMountedOnce = true;
     }
-    this.#buttonElement?.addEventListener("click", this.handleButtonClick);
-    document.addEventListener("click", this.handleOutsideClick);
+    this.#formElement.addEventListener("change", this.handleFormChange);
   }
 
   disconnectedCallback() {
-    this.#buttonElement?.removeEventListener("click", this.handleButtonClick);
-    document.removeEventListener("click", this.handleOutsideClick);
+    this.#formElement.removeEventListener("change", this.handleFormChange);
   }
 
   attributeChangedCallback(name: string, oldvalue: string | undefined, newValue: string | undefined) {
@@ -123,10 +137,6 @@ class WebFontMenu extends HTMLElement {
       switch (name) {
         case "font": {
           this.#handleFont(newValue);
-          break;
-        }
-        case "visible": {
-          this.#handleVisibility(typeof newValue === "string");
           break;
         }
       }
